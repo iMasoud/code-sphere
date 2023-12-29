@@ -14,6 +14,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@nuxt/content": "^1",
     "ant-design-vue": "^1.7.8",
     "core-js": "^3.25.3",
     "nuxt": "^2.15.8",
