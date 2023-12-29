@@ -1,3 +1,6 @@
+const fs = require('fs').promises
+const path = require('path')
+
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
@@ -37,13 +40,17 @@ export default {
   modules: ['@nuxt/content'],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {
-    // extend (config) {
-    //   config.module.rules.push({
-    //     test: /\.mjs$/,
-    //     include: /node_modules/,
-    //     type: "javascript/auto"
-    //   })
-    // }
-  }
+  build: {},
+
+  generate: {
+    fallback: true,
+    async routes() {
+      const directoryPath = './content/articles'
+      const files = await fs.readdir(directoryPath)
+
+      return files
+        .filter(file => path.extname(file) === '.md')
+        .map(file => `/blog/${path.basename(file, '.md')}`)
+    },
+  },
 }
