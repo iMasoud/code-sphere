@@ -1,11 +1,18 @@
 <template>
-  <Tutorial />
+  <main>
+    <article v-for="post in posts" :key="post.slug">
+      {{ post.slug }}
+    </article>
+  </main>
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
-
-export default Vue.extend({
-  name: 'IndexPage',
-})
+<script>
+export default {
+  async asyncData({ $content }) {
+    const posts = await $content('articles').fetch()
+    return {
+      posts,
+    }
+  },
+}
 </script>
