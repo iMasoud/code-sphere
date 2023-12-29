@@ -1,7 +1,8 @@
 <template>
   <main>
     <article v-for="post in posts" :key="post.slug">
-      {{ post.slug }}
+      <img v-if="post.cover" :src="post.cover" />
+      <nuxt-content :document="{ body: post.excerpt ? post.excerpt : post.body }" />
     </article>
   </main>
 </template>
