@@ -1,7 +1,6 @@
 <template>
   <article>
-    <p>Article last updated: {{ formatDate(article.updatedAt) }}</p>
-    <nuxt-content :document="article" />
+    <blog-post :article="article" class="blog-post" />
   </article>
 </template>
 
@@ -17,7 +16,13 @@ export default {
     formatDate(date) {
       const options = { year: 'numeric', month: 'long', day: 'numeric' }
       return new Date(date).toLocaleDateString('en', options)
-    }
- }
+    },
+  },
 }
 </script>
+
+<style scoped>
+.blog-post {
+  margin-bottom: 20px;
+}
+</style>

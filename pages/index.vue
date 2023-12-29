@@ -1,11 +1,12 @@
 <template>
   <main>
-    <article v-for="post in posts" :key="post.slug">
-      <img v-if="post.cover" :src="post.cover" />
-      <nuxt-content
-        :document="{ body: post.excerpt ? post.excerpt : post.body }"
-      />
-    </article>
+    <blog-post
+      v-for="post in posts"
+      :key="post.slug"
+      :article="post"
+      class="blog-post"
+      preview
+    />
   </main>
 </template>
 
@@ -19,3 +20,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.blog-post {
+  margin-bottom: 20px;
+}
+</style>

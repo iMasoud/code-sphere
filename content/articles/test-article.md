@@ -1,11 +1,10 @@
 ---
+title: Unleash the power!
 author: Masoud Alemi
 email: masoudalemi@gmail.com
 tags: markdown, article
 cover: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/17779/yosemite-3.jpg'
 ---
-
-# Unleash the power!
 
 We have a collaborative session
 
