@@ -1,8 +1,8 @@
 ---
-title: Collect your documents with a book
+title: Example CSS post
 author: Masoud Alemi
 email: info@masoud.pro
-tags: markdown
+tags: styling
 ---
 
 View the book with "<i class="fa fa-book fa-fw"></i> Book Mode".

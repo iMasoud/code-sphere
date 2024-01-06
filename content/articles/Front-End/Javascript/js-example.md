@@ -1,8 +1,8 @@
 ---
-title: An example
+title: Javascript example
 author: Masoud Alemi
 email: info@masoud.pro
-tags: markdown, article
+tags: styling
 ---
 
 ## Introduction 
