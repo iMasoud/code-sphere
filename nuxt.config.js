@@ -1,10 +1,9 @@
-const fs = require('fs').promises
-const path = require('path')
+const fg = require('fast-glob')
+const { BlogPageType } = require('./src/enums/BlogPageType.ts')
 
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
-  ssr: true,
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -25,7 +24,7 @@ export default {
   css: ['ant-design-vue/dist/antd.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['@/plugins/antd-ui'],
+  plugins: ['@/plugins/antd-ui', '@/plugins/contentData.js'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -44,13 +43,23 @@ export default {
 
   generate: {
     fallback: true,
-    async routes() {
-      const directoryPath = './content/articles'
-      const files = await fs.readdir(directoryPath)
+    routes() {
+      // Get all nested files and directories in content directory for production
+      return fg(['content/**/*'], { onlyFiles: false }).then((fgResult) => {
+        const dynamicRoutes = fgResult.map((fullPath) => {
+          const path = fullPath.replace(/^.*?content\//, '')
+          const isFile = path.endsWith('.md')
+          const route = isFile ? path.slice(0, -3) : path
 
-      return files
-        .filter(file => path.extname(file) === '.md')
-        .map(file => `/blog/${path.basename(file, '.md')}`)
+          return {
+            route: `/blog/${route}`,
+            payload: {
+              pageType: isFile ? BlogPageType.Article : BlogPageType.Category,
+            },
+          }
+        })
+        return dynamicRoutes
+      })
     },
   },
 }

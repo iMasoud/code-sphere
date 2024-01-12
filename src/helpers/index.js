@@ -6,3 +6,8 @@ export function generateGravatarUrl(email, size) {
 
   return `https://www.gravatar.com/avatar/${hash}?s=${size}`
 }
+
+export function formatDate(date) {
+  const options = { year: 'numeric', month: 'long', day: 'numeric' }
+  return new Date(date).toLocaleDateString('en', options)
+}

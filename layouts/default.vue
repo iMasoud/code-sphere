@@ -5,33 +5,37 @@
         <NuxtLink to="/"><h1>Code Sphere</h1></NuxtLink>
       </div>
     </header>
-    <a-row class="main">
-      <a-col
-        :span="24"
-        :lg="{ span: 12, offset: 6 }"
-        :xs="{ span: 22, offset: 1 }"
-      >
+    <a-row class="main" :gutter="16">
+      <a-col :xs="24" :lg="18">
         <Nuxt />
+      </a-col>
+      <a-col :xs="24" :lg="6">
+        <a-affix :offset-top="16">
+          <categories />
+        </a-affix>
       </a-col>
     </a-row>
   </div>
 </template>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,300&display=swap');
 
 body {
   background-color: #efeff3;
   margin: 0;
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
+  font-size: 100%;
   #root {
+    overflow: hidden;
+
     header {
       background: #ff4444;
       height: 200px;
       border-top: 20px solid #cc0000;
       .blog-name {
-        width: 760px;
+        max-width: 760px;
         margin: 38px auto 0 auto;
         h1 {
           font-size: 48px;
@@ -42,6 +46,11 @@ body {
     }
     .main {
       margin-top: -40px;
+      @media (min-width: 1200px) {
+        /* lg and higher */
+        padding-right: 32px;
+        padding-left: 32px;
+      }
     }
   }
 }

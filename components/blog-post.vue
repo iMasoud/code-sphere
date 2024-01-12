@@ -1,5 +1,10 @@
 <template>
-  <a-card :title="article.title" :bordered="false" class="card">
+  <a-card :bordered="false" class="card" :extra="formatDate(article.createdAt)">
+    <template #title>
+      <NuxtLink :to="articleLink" class="card-title">{{
+        article.title
+      }}</NuxtLink>
+    </template>
     <img
       v-if="article.cover"
       slot="cover"
@@ -8,11 +13,15 @@
       class="card-cover"
     />
     <a-card-meta :title="article.author" class="card-meta">
-      <a-avatar slot="avatar" :src="getAvatarURL(article.email)" />
+      <a-avatar
+        v-if="article.email"
+        slot="avatar"
+        :src="getAvatarURL(article.email)"
+      />
     </a-card-meta>
-    <nuxt-content :document="{ body }" />
-    <template v-if="preview" slot="actions">
-      <NuxtLink :to="getArticleLink(article.slug)">
+    <nuxt-content style="font-size: 125%" :document="{ body }" />
+    <template v-if="showArticleLink" slot="actions">
+      <NuxtLink :to="articleLink">
         <a-icon key="ellipsis" type="ellipsis" />
       </NuxtLink>
     </template>
@@ -21,7 +30,7 @@
 
 <script>
 import Vue from 'vue'
-import { generateGravatarUrl } from '../helpers'
+import { generateGravatarUrl, formatDate } from '../src/helpers'
 
 export default Vue.extend({
   props: {
@@ -33,6 +42,9 @@ export default Vue.extend({
       required: false,
       default: false,
     },
+    path: {
+      type: String,
+    },
   },
 
   computed: {
@@ -41,15 +53,19 @@ export default Vue.extend({
         ? this.article.excerpt
         : this.article.body
     },
+    showArticleLink() {
+      return this.preview && this.path
+    },
+    articleLink() {
+      return '/blog'.concat(this.path)
+    },
   },
 
   methods: {
     getAvatarURL(email) {
       return generateGravatarUrl(email, 32)
     },
-    getArticleLink(slug) {
-      return `/blog/${slug}`
-    },
+    formatDate,
   },
 })
 </script>
@@ -59,6 +75,13 @@ export default Vue.extend({
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03),
     0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02);
   border-radius: 8px;
+
+  .card-title {
+    color: black;
+    font-weight: 500;
+    font-size: 125%;
+    line-height: 80%;
+  }
 
   .card-cover {
     border-radius: 8px 8px 0 0;
