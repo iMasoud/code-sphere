@@ -21,7 +21,7 @@
     </a-card-meta>
     <nuxt-content style="font-size: 125%" :document="{ body }" />
     before
-    <div v-if="preview === false" class="rw-ui-container">inside</div>
+    <div v-if="preview === false" class="rw-ui-container"></div>
     after
     <template v-if="showArticleLink" slot="actions">
       <NuxtLink :to="articleLink">
